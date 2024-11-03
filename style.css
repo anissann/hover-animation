@@ -1,0 +1,94 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+:root {
+	--index: calc(1vw + 1vh);
+	--transition: cubic-bezier(.1, .7, 0, 1);
+}
+body {
+	background-color: #141414;
+}
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+.images {
+	display: flex;
+	gap: .4rem;
+	perspective: calc(var(--index) * 35);
+}
+.image {
+	background-color: #222;
+	width: calc(var(--index) * 3);
+	height: calc(var(--index) * 12);
+	background-size: cover;
+	background-position: center;
+	cursor: pointer;
+	transition: transform 1.25s var(--transition), filter 3s var(--transition), width 1.25s var(--transition);
+	will-change: transform, filter;
+	filter: grayscale() brightness(.5);
+}
+.image::before, .image::after {
+	content: '';
+	position: absolute;
+	width: 20px;
+	height: 100%;
+	right: calc(var(--index) * -1);
+}
+.image::after {
+	left: calc(var(--index) * -1);
+}
+.images .image:hover {
+	transform: translateZ(calc(var(--index) * 10));
+	filter: inherit;
+}
+
+.images .image:hover + * {
+	transform: translateZ(calc(var(--index) * 8.5)) rotateY(35deg);
+	filter: inherit;
+	z-index: -1;
+}
+.images .image:hover + * + * {
+	transform: translateZ(calc(var(--index) * 5.6)) rotateY(40deg);
+	filter: inherit;
+	z-index: -2;
+}
+.images .image:hover + * + * + * {
+	transform: translateZ(calc(var(--index) * 2.4)) rotateY(30deg);
+	filter: inherit;
+	z-index: -3;
+}
+.images .image:hover + * + * + * + * {
+	transform: translateZ(calc(var(--index) * .6)) rotateY(14deg);
+	filter: inherit;
+	z-index: -4;
+}
+
+.image:has(+ :hover) {
+	transform: translateZ(calc(var(--index) * 8.5)) rotateY(-35deg);
+	filter: inherit;
+}
+.image:has(+ * + :hover) {
+	transform: translateZ(calc(var(--index) * 5.6)) rotateY(-40deg);
+	filter: inherit;
+}
+.image:has(+ * + * + :hover) {
+	transform: translateZ(calc(var(--index) * 2.4)) rotateY(-30deg);
+	filter: inherit;
+}
+.image:has(+ * + * + * + :hover) {
+	transform: translateZ(calc(var(--index) * .6)) rotateY(-14deg);
+	filter: inherit;
+}
+
+.images .image:active, .images .image:focus {
+	width: 28vw;
+	transform: translateZ(calc(var(--index) * 10));
+	filter: inherit;
+	z-index: 100;
+	margin: 0 .45vw;
+}
